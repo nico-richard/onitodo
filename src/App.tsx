@@ -1,46 +1,56 @@
-import "./App.sass";
-import { HeaderButton } from "./components/button";
-import { TodoItem, TodoItemProps } from "./components/todoItem";
+import { useState } from 'react'
+import './styles/App.sass'
+import { HeaderButton } from './components/Button'
+import { TodoList } from './components/TodoList'
+import initialTodos from './data/todos.json'
+import { TodoItem } from './models/todo.model'
+import { AddTodo } from './components/AddTodo'
 
 function App() {
-  const todoItems: TodoItemProps[] = [
-    { title: "Todo 1", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 2", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 3", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 4", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 5", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 6", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 7", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 8", description: "lorem lorem lorem lorem lorem lorem " },
-    { title: "Todo 9", description: "lorem lorem lorem lorem lorem lorem " },
-  ];
-  const todoDoneItems: TodoItemProps[] = [];
-  const todoDoneItemsList = todoDoneItems.map((item: TodoItemProps) => {
-    return <TodoItem title={item.title} />;
-  });
-  const todoItemsList = todoItems.map((item: TodoItemProps, index: number) => {
-    return (
-      <TodoItem key={index} title={item.title} description={item.description} />
-    );
-  });
+  const [todos, setTodos] = useState<TodoItem[]>(initialTodos)
+  const [addTodoVisible, setAddTodoVisible] = useState<boolean>(false)
+
+  function handleAdd(title: string, description: string): void {
+    const newTodo: TodoItem = {
+      id: todos.length + 1,
+      title: title,
+      description: description,
+      done: false,
+    }
+    setTodos([...todos, newTodo])
+  }
+
+  function handleSearch(): void {}
+
+  function handleAllDone(): void {}
+
+  function handleAllOngoing(): void {}
+
+  function updateStatus(id: number): void {
+    let todosCopy: TodoItem[] = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.done = !todo.done
+      }
+      return todo
+    })
+    setTodos(todosCopy)
+  }
+
   return (
     <div className="app">
       <img className="logo" src="/logo.png" alt="logo" />
       <div className="title">Todo List</div>
       <div className="todo-options">
-        <HeaderButton text="Add todo" />
-        <HeaderButton text="Search todo" />
-        <HeaderButton text="All Done" />
-        <HeaderButton text="All Ongoing" />
+        <HeaderButton text="Add todo" handleClick={() => setAddTodoVisible(!addTodoVisible)} />
+        <HeaderButton text="Search todo" handleClick={handleSearch} />
+        <HeaderButton text="All Done" handleClick={handleAllDone} />
+        <HeaderButton text="All Ongoing" handleClick={handleAllOngoing} />
       </div>
-      <div className="todo-list">
-        {todoItems.length !== 0 ? todoItemsList : <p>No Todo</p>}
-      </div>
-      <div className="todo-done-list">
-        {todoDoneItems.length !== 0 ? todoDoneItemsList : <p>No Todo done</p>}
-      </div>
+      {addTodoVisible && <AddTodo onAddTodo={handleAdd} />}
+      <TodoList data={todos} isDone={false} updateStatus={updateStatus} />
+      <TodoList data={todos} isDone={true} updateStatus={updateStatus} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
