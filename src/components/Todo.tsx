@@ -13,10 +13,10 @@ export function Todo({ item, updateStatus, deleteTodo }: TodoItemProps): JSX.Ele
       <h2>{item.title}</h2>
       <p>{item.description}</p>
       <div className="edit">
-        <div className="done edit-section">
+        <div className="done">
           <TodoButton text={item.done ? 'Not Done' : 'Done'} handleClick={() => updateStatus(item.id)} />
         </div>
-        <div className="delete edit-section">
+        <div className="delete">
           <TodoButton text="Delete" handleClick={() => deleteTodo(item.id)} />
         </div>
       </div>

@@ -79,34 +79,31 @@ $oniBlack: #000000
             background-color: $oniBlueHover
             cursor: pointer
 
-    .todo-button
-        background-color: $oniRed
-        border: 1px solid $oniBlack
-        border-radius: 2px
-        padding: 0.5rem 0.5rem
-        color: $oniWhite
-        font-size: 0.9rem
-        font-weight: 600
-        &:hover
-            background-color: $oniRedHover
-            cursor: pointer
     .todoItem
         list-style-type: none
         background-color: $oniBlue
         padding: 1rem
         border: 1px solid $oniBlack
         border-radius: 2px
-        width: 150px
+        width: 170px
         h2
             text-align: center
+        .todo-button
+            background-color: $oniRed
+            border: 1px solid $oniBlack
+            border-radius: 2px
+            padding: 0.5rem
+            color: $oniWhite
+            font-size: 0.8rem
+            font-weight: 600
+            &:hover
+                background-color: $oniRedHover
+                cursor: pointer
         .edit
             display: flex
             flex-direction: row
             justify-content: space-between
             align-items: center
-            .edit-section
-                display: flex
-                flex-direction: column
             input[type="checkbox"]
                 transform: scale(2)
                 background-color: $oniWhite
