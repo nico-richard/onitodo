@@ -20,20 +20,37 @@ function App() {
     setTodos([...todos, newTodo])
   }
 
+  function handleDelete(id: number): void {
+    const filteredTodos = todos.filter((todo) => todo.id !== id)
+    setTodos(filteredTodos)
+  }
+
   function handleSearch(): void {}
 
-  function handleAllDone(): void {}
+  function handleAllDone(): void {
+    let todosUpdated: TodoItem[] = todos.map((todo) => {
+      todo.done = true
+      return todo
+    })
+    setTodos(todosUpdated)
+  }
 
-  function handleAllOngoing(): void {}
+  function handleAllOngoing(): void {
+    let todosUpdated: TodoItem[] = todos.map((todo) => {
+      todo.done = false
+      return todo
+    })
+    setTodos(todosUpdated)
+  }
 
   function updateStatus(id: number): void {
-    let todosCopy: TodoItem[] = todos.map((todo) => {
+    let todosUpdated: TodoItem[] = todos.map((todo) => {
       if (todo.id === id) {
         todo.done = !todo.done
       }
       return todo
     })
-    setTodos(todosCopy)
+    setTodos(todosUpdated)
   }
 
   return (
@@ -47,8 +64,10 @@ function App() {
         <HeaderButton text="All Ongoing" handleClick={handleAllOngoing} />
       </div>
       {addTodoVisible && <AddTodo onAddTodo={handleAdd} />}
-      <TodoList data={todos} isDone={false} updateStatus={updateStatus} />
-      <TodoList data={todos} isDone={true} updateStatus={updateStatus} />
+      <div className="todo-lists">
+        <TodoList data={todos} isDone={false} updateStatus={updateStatus} deleteTodo={handleDelete} />
+        <TodoList data={todos} isDone={true} updateStatus={updateStatus} deleteTodo={handleDelete} />
+      </div>
     </div>
   )
 }

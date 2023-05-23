@@ -38,13 +38,18 @@ $oniBlack: #000000
         flex-wrap: wrap
         gap: 1rem
     .todo-list, .todo-done-list
-        margin: 1rem
-        padding: 1rem
-        border-radius: 10px
         display: flex
         gap: 2rem 1rem
         flex-wrap: wrap
+        padding: 1rem
+        margin: 1rem
+        border-radius: 10px
         background-color: $oniWhiteTransparent
+    .todo-lists
+        display: grid
+        grid-template: 1fr / 1fr 1fr
+        .todo-list-title
+            text-align: center
     .add-todo
         background-color: $oniWhiteTransparent
         margin: 1rem
@@ -60,6 +65,8 @@ $oniBlack: #000000
             padding: .2rem
             &:focus
                 outline: none
+        button
+            display: inline-block
     .header-button
         background-color: $oniBlue
         border: 1px solid $oniBlack
