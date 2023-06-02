@@ -10,11 +10,12 @@ $oniBlack: #000000
     font-family: 'LiberationSans'
     src: url('/LiberationSans-Regular.ttf')
 
-.app
+.header
     display: flex
     flex-direction: column
     justify-content: center
     gap: 2rem
+    margin-bottom: 2rem
     .title
         background-color: $oniRed
         text-transform: uppercase
@@ -31,6 +32,26 @@ $oniBlack: #000000
         margin: auto
         width: 30%
         max-width: 200px
+        &:hover
+            cursor: pointer
+.landing-routes
+    list-style-type: none
+    li
+        font-size: 2rem
+        margin: 1rem
+        a
+            color: $oniWhite
+            text-decoration: none
+            padding: 1rem 2rem
+            border-radius: 5px
+            &:hover
+                background-color: $oniWhiteTransparent
+
+.app
+    display: flex
+    flex-direction: column
+    justify-content: center
+    gap: 2rem
     .todo-options
         display: flex
         flex-direction: row
